@@ -21,4 +21,4 @@ class Data:
     # Create a rank dictionary
     rank_dict = {value: x + 1 for x, value in enumerate(arr)}
     # Map the ranks back to the DataFrame
-    df['Rank'] = df[column].map(rank_dict)
+    df[column+'Rank'] = df[column].map(rank_dict)
