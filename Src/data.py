@@ -12,7 +12,7 @@ class Data:
 
     def access(self, column, row):
         return self.df[column][row]
-
+    #From stackoverflow on dataframes.
     def add_rank_to_dataframe(df, column):
     # Copy the specific column to a new list
     arr = df[column].tolist()
