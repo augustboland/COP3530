@@ -3,11 +3,11 @@
 import pandas as pd
 import plotly.graph_objects as go
 import dash
-import dash_core_components as dcc
-import dash_html_components as html
+from dash import dcc, html
 from dash.dependencies import Input, Output
 import dash_bootstrap_components as dbc
 import time
+from data import Data
 
 
 # heap sort (change later)
@@ -53,6 +53,7 @@ data = pd.DataFrame({
     'True Shooting %': ts_pct,
     'Assist %': ast_pct
 })
+data = Data().temp()
 
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
 
@@ -66,7 +67,7 @@ app.layout = dbc.Container([
             html.Label('Select Players:', className='mb-2'),
             dcc.Dropdown(
                 id='player-dropdown',
-                options=[{'label': player, 'value': player} for player in data['Player Name'].unique()],
+                options=[{'label': player, 'value': player} for player in data['player_name'].unique()],
                 multi=True,
                 className='mb-3'
             )
@@ -158,7 +159,7 @@ def update_season_options(selected_players):
         return []  # Return empty options if no players are selected
 
     # Get the unique seasons for the selected players
-    selected_seasons = data[data['Player Name'].isin(selected_players)]['Season'].unique()
+    selected_seasons = data[data['player_name'].isin(selected_players)]['season'].unique()
 
     return [{'label': str(season), 'value': season} for season in selected_seasons]
 
@@ -178,18 +179,18 @@ def update_radar_plot(selected_players, selected_seasons, selected_columns):
 
     # Filter data based on user selections
     filtered_data = data[
-        (data['Player Name'].isin(selected_players)) &
-        (data['Season'].isin(selected_seasons))
+        (data['player_name'].isin(selected_players)) &
+        (data['season'].isin(selected_seasons))
         ].copy()
 
     # Create a new plot
     fig = go.Figure()
 
     # Add traces for each player and season
-    for player in filtered_data['Player Name'].unique():
-        player_data = filtered_data[filtered_data['Player Name'] == player]
-        for season in player_data['Season'].unique():
-            season_data = player_data[player_data['Season'] == season]
+    for player in filtered_data['player_name'].unique():
+        player_data = filtered_data[filtered_data['player_name'] == player]
+        for season in player_data['season'].unique():
+            season_data = player_data[player_data['season'] == season]
             fig.add_trace(go.Scatterpolar(
                 r=season_data[selected_columns].values.tolist()[0],
                 theta=selected_columns,

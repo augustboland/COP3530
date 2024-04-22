@@ -1,3 +1,4 @@
+import pandas as pd
 # Implementing heap sort
 def heap_sort(arr):
     def heapify(arr, n, i):
@@ -32,7 +33,7 @@ def heap_sort(arr):
         heapify(arr, i, 0)
 
 # Read the dataset into a DataFrame
-df = pd.read_csv('all_seasons 2.csv')
+df = pd.read_csv('Data/all_seasons 2.csv')
 
 # Create tuples containing (player name, points, season) for each player
 pts_data_points = [(row['player_name'], row['pts'], row['season']) for index, row in df.iterrows()]
@@ -69,12 +70,12 @@ ast_pct_sorted_data = pd.DataFrame(ast_pct_data_points, columns=['player_name', 
 
 
 # Print the sorted DataFrame
-print(pts_sorted_data)
-print(reb_sorted_data)
-print(ast_sorted_data)
-print(net_rating_sorted_data)
-print(oreb_pct_sorted_data)
-print(dreb_pct_sorted_data)
-print(usg_pct_sorted_data)
-print(ts_pct_sorted_data)
-print(ast_pct_sorted_data)
+#print(pts_sorted_data)
+#print(reb_sorted_data)
+#print(ast_sorted_data)
+#print(net_rating_sorted_data)
+#print(oreb_pct_sorted_data)
+#print(dreb_pct_sorted_data)
+#print(usg_pct_sorted_data)
+#print(ts_pct_sorted_data)
+#print(ast_pct_sorted_data)
