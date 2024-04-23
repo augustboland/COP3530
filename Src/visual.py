@@ -7,6 +7,7 @@ import dash_bootstrap_components as dbc
 from data import Data
 import radixSort as rs
 import heapSort as hs
+from scipy.stats import percentileofscore
 
 # Initialize the Dash application
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
@@ -84,28 +85,37 @@ def update_radar_plot(selected_players, selected_stats, sorting_method, selected
     if not selected_players or not selected_stats:
         return go.Figure()
 
-    data = Data().get_season_data(selected_season)
-    filtered_data = data[data['player_name'].isin(selected_players)].copy()
+    # Get data for the specified season
+    season_data = Data().get_season_data(selected_season)
 
+    # Calculate the percentile for each statistic across all players for the season
     for stat in selected_stats:
-        # Sort the stats and assign ranks
-        stat_values = filtered_data[stat].tolist()
-        sorted_values = rs.radix_sort(stat_values) if sorting_method == 'radix' else hs.heap_sort(stat_values)
-        rank_series = pd.Series(sorted_values).rank(method='min')
-        rank_mapping = {value: rank for value, rank in zip(sorted_values, rank_series)}
-        filtered_data[stat + ' Rank'] = filtered_data[stat].map(rank_mapping)
+        season_data[stat + ' Percentile'] = season_data[stat].rank(pct=True) * 100
+
+    # Filter the data to only include the selected players
+    filtered_data = season_data[season_data['player_name'].isin(selected_players)]
 
     # Construct the radar plot
     fig = go.Figure()
     for player in selected_players:
         player_data = filtered_data[filtered_data['player_name'] == player]
         fig.add_trace(go.Scatterpolar(
-            r=[player_data[stat + ' Rank'].iloc[0] for stat in selected_stats],
-            theta=[stat + ' Rank' for stat in selected_stats],
+            r=[player_data[stat + ' Percentile'].iloc[0] for stat in selected_stats],
+            theta=[stat + ' Percentile' for stat in selected_stats],
             fill='toself',
             name=player
         ))
-    fig.update_layout(polar=dict(radialaxis=dict(visible=True)))
+
+    # Update the layout to set the range of the radial axis from 0 to 100
+    fig.update_layout(
+        polar=dict(
+            radialaxis=dict(
+                visible=True,
+                range=[0, 100]  # Set the range from 0 to 100%
+            )
+        ),
+        # Additional layout parameters can be set here
+    )
     return fig
 
 if __name__ == '__main__':

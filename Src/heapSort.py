@@ -36,18 +36,18 @@ def heap_sort(arr):
         heapify(arr, i, 0)
 
 # read the data set into a data frame
-data_frame = pd.read_csv('all_seasons 2.csv')
+data_frame = pd.read_csv('Data/all_seasons 2.csv')
 
 # create tuples containing stats for each player and season for each player
-pts_data_points = [(row['player_name'], row['pts'], row['season']) for index, row in df.iterrows()]
-reb_data_points = [(row['player_name'], row['reb'], row['season']) for index, row in df.iterrows()]
-ast_data_points = [(row['player_name'], row['ast'], row['season']) for index, row in df.iterrows()]
-net_rating_data_points = [(row['player_name'], row['net_rating'], row['season']) for index, row in df.iterrows()]
-oreb_pct_data_points = [(row['player_name'], row['oreb_pct'], row['season']) for index, row in df.iterrows()]
-dreb_pct_data_points = [(row['player_name'], row['dreb_pct'], row['season']) for index, row in df.iterrows()]
-usg_pct_data_points = [(row['player_name'], row['usg_pct'], row['season']) for index, row in df.iterrows()]
-ts_pct_data_points = [(row['player_name'], row['ts_pct'], row['season']) for index, row in df.iterrows()]
-ast_pct_data_points = [(row['player_name'], row['ast_pct'], row['season']) for index, row in df.iterrows()]
+pts_data_points = [(row['player_name'], row['pts'], row['season']) for index, row in data_frame.iterrows()]
+reb_data_points = [(row['player_name'], row['reb'], row['season']) for index, row in data_frame.iterrows()]
+ast_data_points = [(row['player_name'], row['ast'], row['season']) for index, row in data_frame.iterrows()]
+net_rating_data_points = [(row['player_name'], row['net_rating'], row['season']) for index, row in data_frame.iterrows()]
+oreb_pct_data_points = [(row['player_name'], row['oreb_pct'], row['season']) for index, row in data_frame.iterrows()]
+dreb_pct_data_points = [(row['player_name'], row['dreb_pct'], row['season']) for index, row in data_frame.iterrows()]
+usg_pct_data_points = [(row['player_name'], row['usg_pct'], row['season']) for index, row in data_frame.iterrows()]
+ts_pct_data_points = [(row['player_name'], row['ts_pct'], row['season']) for index, row in data_frame.iterrows()]
+ast_pct_data_points = [(row['player_name'], row['ast_pct'], row['season']) for index, row in data_frame.iterrows()]
 
 # heap sort each player stat being sorted
 heap_sort(pts_data_points)
