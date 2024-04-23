@@ -1,39 +1,35 @@
 import pandas as pd
 # Implementing heap sort
 def heap_sort(arr):
-    # heapify function to help with heap sort
     def heapify(arr, n, i):
         largest_value = i
         left_child = 2 * i + 1
         right_child = 2 * i + 2
 
-        # check if left child of root exists and is greater than root
-        if left_child < n and arr[left_child][1] > arr[largest_value][1]:
+        # Check if left child of root exists and is greater than root
+        if left_child < n and arr[left_child] > arr[largest_value]:
             largest_value = left_child
 
-        # check if right child of root exists and is greater than the largest value
-        if right_child < n and arr[right_child][1] > arr[largest_value][1]:
+        # Check if right child of root exists and is greater than the largest so far
+        if right_child < n and arr[right_child] > arr[largest_value]:
             largest_value = right_child
 
-        # change root if largest is not i
+        # Change root, if needed
         if largest_value != i:
-            # swap
-            arr[i], arr[largest_value] = arr[largest_value], arr[i]
-            # heapify root
+            arr[i], arr[largest_value] = arr[largest_value], arr[i]  # swap
             heapify(arr, n, largest_value)
 
     n = len(arr)
-
-    # create max heap
+    # Create a max heap
     for i in range(n // 2 - 1, -1, -1):
         heapify(arr, n, i)
 
-    # extract one at a time
+    # One by one extract elements
     for i in range(n - 1, 0, -1):
-        # swap
-        arr[i], arr[0] = arr[0], arr[i]
-        # heapify
+        arr[i], arr[0] = arr[0], arr[i]  # swap
         heapify(arr, i, 0)
+
+    return arr
 
 # read the data set into a data frame
 data_frame = pd.read_csv('Data/all_seasons 2.csv')
