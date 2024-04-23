@@ -8,12 +8,14 @@ from dash.dependencies import Input, Output
 import dash_bootstrap_components as dbc
 import time
 from data import Data
+import heapSort as hs
+import radixSort as rs
 
 
 # heap sort (change later)
 def heap_sort(arr):
     start_time = time.time()
-    # input function here
+    hs.heap_sort(arr)
     end_time = time.time()
     return end_time - start_time
 
@@ -21,7 +23,7 @@ def heap_sort(arr):
 # radix sort (change later)
 def radix_sort(arr):
     start_time = time.time()
-    # Your radix sort implementation here
+    rs.radix_sort(arr)
     end_time = time.time()
     return end_time - start_time
 
