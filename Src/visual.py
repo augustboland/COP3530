@@ -71,7 +71,7 @@ def update_dropdowns(selected_season, sorting_method):
     data = Data().temp()  # Load fresh data
     data = data[data['season'] == selected_season]
     player_options = [{'label': player, 'value': player} for player in data['player_name'].unique()]
-    stat_options = [{'label': col, 'value': col} for col in data.columns if col not in ['player_name', 'season']]
+    stat_options = [{'label': col, 'value': col} for col in data.columns if col not in ['player_name', 'season'] and data[col].dtype in [float, int]]
     return player_options, stat_options
 
 @app.callback(
