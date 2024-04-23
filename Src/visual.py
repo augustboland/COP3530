@@ -99,12 +99,13 @@ def update_radar_plot(selected_players, selected_stats, sorting_method, selected
     fig = go.Figure()
     for player in selected_players:
         player_data = filtered_data[filtered_data['player_name'] == player]
-        fig.add_trace(go.Scatterpolar(
-            r=[player_data[stat + ' Percentile'].iloc[0] for stat in selected_stats],
-            theta=[stat + ' Percentile' for stat in selected_stats],
-            fill='toself',
-            name=player
-        ))
+        if not player_data.empty:
+            fig.add_trace(go.Scatterpolar(
+                r=[player_data[stat + ' Percentile'].iloc[0] for stat in selected_stats],
+                theta=[stat + ' Percentile' for stat in selected_stats],
+                fill='toself',
+                name=player
+            ))
 
     # Update the layout to set the range of the radial axis from 0 to 100
     fig.update_layout(
