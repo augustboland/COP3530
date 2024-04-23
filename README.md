@@ -10,4 +10,4 @@ Steps to run our NBA Player Statistics Visualizer:
 4. Click the link that appears in the terminal
 5. This will open our NBA Player Statistics Visualizer
 
-Watch this YouTube video to see how the NBA Player Statistics Visualizer work:
+Watch this YouTube video to see how the NBA Player Statistics Visualizer work: https://www.youtube.com/watch?v=5QJNDQGgwno&feature=youtu.be
