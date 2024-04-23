@@ -9,3 +9,5 @@ Steps to run our NBA Player Statistics Visualizer:
 3. Open visual.py and run it.
 4. Click the link that appears in the terminal
 5. This will open our NBA Player Statistics Visualizer
+
+Watch this YouTube video to see how the NBA Player Statistics Visualizer work:
