@@ -121,3 +121,14 @@ def update_radar_plot(selected_players, selected_stats, sorting_method, selected
 
 if __name__ == '__main__':
     app.run_server(debug=True)
+
+# References:
+    
+# dash-bootstrap-components documentation
+# https://dash-bootstrap-components.opensource.faculty.ai/docs/quickstart/
+    
+# Scipy Documentation
+# https://docs.scipy.org/doc/scipy/tutorial/stats.html
+    
+# Plotly documentation
+# https://dash.plotly.com/basic-callbacks
