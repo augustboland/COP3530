@@ -1,5 +1,6 @@
 import pandas as pd
 # Implementing heap sort
+# https://www.geeksforgeeks.org/python-program-for-heap-sort/ 
 def heap_sort(arr):
     def heapify(arr, n, i):
         largest_value = i
@@ -32,9 +33,11 @@ def heap_sort(arr):
     return arr
 
 # read the data set into a data frame
+# https://www.geeksforgeeks.org/python-pandas-dataframe/
 data_frame = pd.read_csv('Data/all_seasons 2.csv')
 
 # create tuples containing stats for each player and season for each player
+# https://www.geeksforgeeks.org/creating-a-pandas-dataframe-using-list-of-tuples/
 pts_data_points = [(row['player_name'], row['pts'], row['season']) for index, row in data_frame.iterrows()]
 reb_data_points = [(row['player_name'], row['reb'], row['season']) for index, row in data_frame.iterrows()]
 ast_data_points = [(row['player_name'], row['ast'], row['season']) for index, row in data_frame.iterrows()]
@@ -66,15 +69,3 @@ dreb_pct_sorted_data = pd.DataFrame(dreb_pct_data_points, columns=['player_name'
 usg_pct_sorted_data = pd.DataFrame(usg_pct_data_points, columns=['player_name', 'usg_pct', 'season'])
 ts_pct_sorted_data = pd.DataFrame(ts_pct_data_points, columns=['player_name', 'ts_pct', 'season'])
 ast_pct_sorted_data = pd.DataFrame(ast_pct_data_points, columns=['player_name', 'ast_pct', 'season'])
-
-
-# print sorted player data
-#print(pts_sorted_data)
-#print(reb_sorted_data)
-#print(ast_sorted_data)
-#print(net_rating_sorted_data)
-#print(oreb_pct_sorted_data)
-#print(dreb_pct_sorted_data)
-#print(usg_pct_sorted_data)
-#print(ts_pct_sorted_data)
-#print(ast_pct_sorted_data)
