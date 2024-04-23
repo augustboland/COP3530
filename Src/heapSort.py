@@ -1,41 +1,44 @@
 import pandas as pd
 # Implementing heap sort
 def heap_sort(arr):
+    # heapify function to help with heap sort
     def heapify(arr, n, i):
-        largest = i  # Initialize largest as root
-        l = 2 * i + 1  # left = 2*i + 1
-        r = 2 * i + 2  # right = 2*i + 2
+        largest_value = i
+        left_child = 2 * i + 1
+        right_child = 2 * i + 2
 
-        # See if left child of root exists and is greater than root
-        if l < n and arr[l][1] > arr[largest][1]:
-            largest = l
+        # check if left child of root exists and is greater than root
+        if left_child < n and arr[left_child][1] > arr[largest_value][1]:
+            largest_value = left_child
 
-        # See if right child of root exists and is greater than the largest so far
-        if r < n and arr[r][1] > arr[largest][1]:
-            largest = r
+        # check if right child of root exists and is greater than the largest value
+        if right_child < n and arr[right_child][1] > arr[largest_value][1]:
+            largest_value = right_child
 
-        # Change root, if needed
-        if largest != i:
-            arr[i], arr[largest] = arr[largest], arr[i]  # swap
-
-            # Heapify the root
-            heapify(arr, n, largest)
+        # change root if largest is not i
+        if largest_value != i:
+            # swap
+            arr[i], arr[largest_value] = arr[largest_value], arr[i]
+            # heapify root
+            heapify(arr, n, largest_value)
 
     n = len(arr)
 
-    # Build a maxheap.
+    # create max heap
     for i in range(n // 2 - 1, -1, -1):
         heapify(arr, n, i)
 
-    # Extract elements one by one
+    # extract one at a time
     for i in range(n - 1, 0, -1):
-        arr[i], arr[0] = arr[0], arr[i]  # swap
+        # swap
+        arr[i], arr[0] = arr[0], arr[i]
+        # heapify
         heapify(arr, i, 0)
 
-# Read the dataset into a DataFrame
-df = pd.read_csv('Data/all_seasons 2.csv')
+# read the data set into a data frame
+data_frame = pd.read_csv('all_seasons 2.csv')
 
-# Create tuples containing (player name, points, season) for each player
+# create tuples containing stats for each player and season for each player
 pts_data_points = [(row['player_name'], row['pts'], row['season']) for index, row in df.iterrows()]
 reb_data_points = [(row['player_name'], row['reb'], row['season']) for index, row in df.iterrows()]
 ast_data_points = [(row['player_name'], row['ast'], row['season']) for index, row in df.iterrows()]
@@ -46,7 +49,7 @@ usg_pct_data_points = [(row['player_name'], row['usg_pct'], row['season']) for i
 ts_pct_data_points = [(row['player_name'], row['ts_pct'], row['season']) for index, row in df.iterrows()]
 ast_pct_data_points = [(row['player_name'], row['ast_pct'], row['season']) for index, row in df.iterrows()]
 
-# Apply heap sort to the list of tuples based on points
+# heap sort each player stat being sorted
 heap_sort(pts_data_points)
 heap_sort(reb_data_points)
 heap_sort(ast_data_points)
@@ -57,7 +60,7 @@ heap_sort(usg_pct_data_points)
 heap_sort(ts_pct_data_points)
 heap_sort(ast_pct_data_points)
 
-# Reconstruct the DataFrame with the sorted data
+# reconstruct the data frame with the sorted data
 pts_sorted_data = pd.DataFrame(pts_data_points, columns=['player_name', 'pts', 'season'])
 reb_sorted_data = pd.DataFrame(reb_data_points, columns=['player_name', 'reb', 'season'])
 ast_sorted_data = pd.DataFrame(ast_data_points, columns=['player_name', 'ast', 'season'])
@@ -69,7 +72,7 @@ ts_pct_sorted_data = pd.DataFrame(ts_pct_data_points, columns=['player_name', 't
 ast_pct_sorted_data = pd.DataFrame(ast_pct_data_points, columns=['player_name', 'ast_pct', 'season'])
 
 
-# Print the sorted DataFrame
+# print sorted player data
 #print(pts_sorted_data)
 #print(reb_sorted_data)
 #print(ast_sorted_data)
